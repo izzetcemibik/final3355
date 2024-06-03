@@ -294,18 +294,15 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-const https = require('https');
-const app = require('./app');
+const port = process.env.PORT || 8080;
 
-const sslOptions = {
-  key: fs.readFileSync('/path/to/private.key'),
-  cert: fs.readFileSync('/path/to/certificate.crt')
-};
-
-https.createServer(sslOptions, app).listen(8080, () => {
-  console.log('Server running on port 8080');
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
+app.listen(port, () => {
+  console.log(`App is listening on port ${port}`);
+});
 const connection = mysql.createConnection({
     host: 'izofinaldb.mysql.database.azure.com',
     user: 'cemibik',
@@ -499,4 +496,3 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
